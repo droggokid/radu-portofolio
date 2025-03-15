@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState, useCallback } from "react";
-import { initParticlesEngine } from "@tsparticles/react";
+import Particles, { initParticlesEngine } from "@tsparticles/react";
 import {
   type Container,
   type ISourceOptions,
@@ -9,22 +9,19 @@ import {
   OutMode,
 } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
-import dynamic from "next/dynamic";
-
-const Particles = dynamic(
-  () => import("@tsparticles/react").then((mod) => mod.default),
-  { ssr: false }
-);
 
 const ParticlesComponent = () => {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
+    const initializeEngine = async () => {
+      await initParticlesEngine(async (engine) => {
+        await loadSlim(engine);
+      });
       setInit(true);
-    });
+    };
+
+    initializeEngine();
   }, []);
 
   const particlesLoaded = useCallback(
@@ -90,17 +87,15 @@ const ParticlesComponent = () => {
     []
   );
 
-  if (init) {
-    return (
-      <Particles
-        id="tsparticles"
-        particlesLoaded={particlesLoaded}
-        options={options}
-      />
-    );
-  }
+  if (!init) return null;
 
-  return null;
+  return (
+    <Particles
+      id="tsparticles"
+      particlesLoaded={particlesLoaded}
+      options={options}
+    />
+  );
 };
 
 export default ParticlesComponent;

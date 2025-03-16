@@ -13,15 +13,23 @@ export default function Navbar() {
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-black/10 backdrop-blur-sm">
-      <div className="container mx-auto flex items-center justify-between px-4 py-2">
-        <Link
-          href="/"
-          className="text-xl text-white tracking-wide font-book-antiqua"
-        >
-          Radu-Florin
-          <HiMiniCodeBracketSquare className="inline-block" />
-        </Link>
-        <ul className="flex space-x-8 text-xl">
+      <div className="container mx-auto px-4 py-2 flex flex-col md:flex-row">
+        {/* Top row: Logo and language button (mobile) */}
+        <div className="flex items-center justify-between w-full">
+          <Link
+            href="/"
+            className="text-xl md:text-2xl text-white tracking-wide font-book-antiqua whitespace-nowrap overflow-hidden truncate max-w-[200px]"
+          >
+            Radu-Florin{" "}
+            <HiMiniCodeBracketSquare className="inline-block ml-1" />
+          </Link>
+          <button className="md:hidden border border-white px-4 py-2 rounded uppercase text-white hover:bg-white hover:text-black transition-colors duration-200">
+            Dansk
+          </button>
+        </div>
+
+        {/* Second row on mobile; single row on desktop */}
+        <ul className="flex justify-center space-x-8 text-xl mt-2 w-full">
           <li>
             <Link href="/">
               <span className={currentRoute === "/" ? activeStyle : linkStyle}>
@@ -61,9 +69,13 @@ export default function Navbar() {
             </Link>
           </li>
         </ul>
-        <button className="border border-white px-4 py-2 rounded uppercase text-white hover:bg-white hover:text-black transition-colors duration-200">
-          Dansk
-        </button>
+
+        {/* Language button for desktop */}
+        <div className="hidden md:flex justify-end w-full">
+          <button className="border border-white px-4 py-2 rounded uppercase text-white hover:bg-white hover:text-black transition-colors duration-200">
+            Dansk
+          </button>
+        </div>
       </div>
     </nav>
   );

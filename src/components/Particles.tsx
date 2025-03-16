@@ -25,16 +25,15 @@ const ParticlesComponent = () => {
   }, []);
 
   const particlesLoaded = useCallback(
-    async (container?: Container): Promise<void> => {
-      console.log(container);
-    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    async (_container?: Container): Promise<void> => {},
     []
   );
 
   const options: ISourceOptions = useMemo(
     () => ({
       background: {
-        color: { value: "#000000" },
+        color: { value: "#1d1d2e" },
       },
       fpsLimit: 60,
       interactivity: {
@@ -45,18 +44,18 @@ const ParticlesComponent = () => {
       },
       particles: {
         number: {
-          value: 150,
+          value: 100,
           density: { enable: true, area: 800 },
         },
         color: { value: "#ffffff" },
-        shape: { type: "star" },
+        shape: { type: "circle" },
         opacity: {
           value: 0.8,
           random: true,
           anim: {
             enable: true,
-            speed: 1,
-            opacity_min: 0.1,
+            speed: 3,
+            opacity_min: 0.3,
             sync: false,
           },
         },
@@ -72,7 +71,7 @@ const ParticlesComponent = () => {
         },
         move: {
           enable: true,
-          speed: 0.5,
+          speed: 0.2,
           direction: MoveDirection.none,
           random: true,
           straight: false,
